@@ -6,7 +6,7 @@
 #    By: apintus <apintus@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 17:16:05 by apintus           #+#    #+#              #
-#    Updated: 2024/03/04 14:33:06 by apintus          ###   ########.fr        #
+#    Updated: 2024/03/07 18:08:44 by apintus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ MAKE_LIB = ar -rcs
 ## SOURCES
 
 SRCS = srcs/main.c\
+		srcs/utils.c\
+		srcs/pipex.c\
+		srcs/exec.c\
 
 OBJS = $(SRCS:.c=.o)
 
