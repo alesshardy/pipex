@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:21:55 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 12:24:35 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/08 13:45:17 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include  "../libft/libft.h"
 # include <errno.h>
@@ -35,6 +35,7 @@ typedef struct s_pipex
 	int		cmd_count;
 	int		fd_in;
 	int		fd_out;
+	int		here_doc;
 }	t_pipex;
 
 int		ft_pipex(t_pipex *pipex);
@@ -52,5 +53,7 @@ char	*ft_find_path(char **split, char *cmd);
 void	ft_init_pipex(int argc, char **argv, char **env, t_pipex *pipex);
 int		ft_waitpid(t_pipex *pipex);
 void	free_tab(char **tab);
+
+void	ft_here_doc(t_pipex *pipex, char *limiter);
 
 #endif

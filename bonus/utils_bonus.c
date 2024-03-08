@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:40:36 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 18:24:51 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:45:56 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 // Initialize the pipex structure
 void	ft_init_pipex(int argc, char **argv, char **env, t_pipex *pipex)
 {
-	pipex->cmd = &argv[2];
+	if (pipex->here_doc)
+	{
+		pipex->cmd_count = argc - 4;
+		pipex->cmd = &argv[3];
+	}
+	else
+	{
+		pipex->cmd_count = argc - 3;
+		pipex->cmd = &argv[2];
+	}
 	pipex->env = env;
 	pipex->infile = argv[1];
 	pipex->outfile = argv[argc - 1];
-	pipex->cmd_count = argc - 3;
 	pipex->pid = malloc(sizeof(int) * (pipex->cmd_count));
 	if (!pipex->pid)
 	{
@@ -53,9 +61,6 @@ int	ft_waitpid(t_pipex *pipex)
 	free(exit_statuses);
 	return (status);
 }
-
-// Modif pour recuperer seulement le retour du dernier processus (en comparant ou last PID)
-// (uiliser wait pour permmetre de pas perdre processus enfant qui fini avant un enfant qui suit)
 
 void	free_tab(char **tab)
 {

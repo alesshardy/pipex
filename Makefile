@@ -6,7 +6,7 @@
 #    By: apintus <apintus@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 17:16:05 by apintus           #+#    #+#              #
-#    Updated: 2024/03/07 18:08:44 by apintus          ###   ########.fr        #
+#    Updated: 2024/03/08 17:04:15 by apintus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,12 @@
 
 NAME = pipex
 ARCHIVE = pipex.a
-CC = gcc
+CC = cc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -g
 MAKE_LIB = ar -rcs
+BONUS_NAME = pipex_bonus
+BONUS_ARCHIVE = pipex_bonus.a
 
 ##########################################################
 ## SOURCES
@@ -34,6 +36,16 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT_MAKE_COMMAND = make -s -C $(LIBFT_DIR)
 LIBFT_PATH = $(LIBFT_DIR)/libft.a
+
+# BONUS
+
+SRCS_BONUS = bonus/main_bonus.c\
+		bonus/utils_bonus.c\
+		bonus/pipex_bonus.c\
+		bonus/exec_bonus.c\
+		bonus/here_doc_bonus.c\
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 ##########################################################
 ## RULES
@@ -54,7 +66,7 @@ $(LIBFT_PATH) :
 
 clean :
 	$(RM) $(OBJS) $(ARCHIVE)
-	$(RM) $(OBJS_BONUS)
+	$(RM) $(OBJS_BONUS) $(BONUS_ARCHIVE)
 	$(LIBFT_MAKE_COMMAND) clean
 
 fclean : clean
@@ -64,4 +76,12 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re
+bonus : $(BONUS_NAME) $(LIBFT_PATH)
+
+$(BONUS_NAME) : $(BONUS_ARCHIVE) $(LIBFT_PATH)
+	$(CC) $(BONUS_ARCHIVE) $(LIBFT_PATH) -o $(BONUS_NAME)
+
+$(BONUS_ARCHIVE) : $(OBJS_BONUS)
+	$(MAKE_LIB) $(BONUS_ARCHIVE) $(OBJS_BONUS)
+
+.PHONY : all clean fclean re bonus

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:01:16 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 18:23:21 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/08 13:14:15 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 int	ft_pipex(t_pipex *pipex)
 {
@@ -22,10 +22,7 @@ int	ft_pipex(t_pipex *pipex)
 		pipe(pipex->fd);
 		pipex->pid[i] = fork();
 		if (pipex->pid[i] == 0)
-		{
-			printf("pid: %d\n", getpid());//debug
 			handle_child_process(pipex, i);
-		}
 		else
 			handle_parent_process(pipex, i);
 		i++;
@@ -80,8 +77,12 @@ void	open_files(int i, t_pipex *pipex)
 	}
 	else if (i == pipex->cmd_count - 1)
 	{
-		pipex->fd_out = open(pipex->outfile,
-				O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (pipex->here_doc == 1)
+			pipex->fd_out = open(pipex->outfile,
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else
+			pipex->fd_out = open(pipex->outfile,
+					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (pipex->fd_out < 0)
 		{
 			perror(pipex->outfile);
