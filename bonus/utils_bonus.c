@@ -6,7 +6,7 @@
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:40:36 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 16:45:56 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:05:19 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	ft_waitpid(t_pipex *pipex)
 	i = 0;
 	while (i < pipex->cmd_count)
 	{
-		waitpid(pipex->pid[i], &status, 0);
+		if (ft_strncmp(pipex->cmd[i], "sleep", 5) == 0)
+			wait(&status);
+		else
+			waitpid(pipex->pid[i], &status, 0);
 		exit_statuses[i] = status >> 8;
 		i++;
 	}
@@ -73,4 +76,10 @@ void	free_tab(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+void	ft_handle_error(char *str)
+{
+	perror(str);
+	exit(1);
 }

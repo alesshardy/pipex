@@ -6,7 +6,7 @@
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:07:44 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 16:03:22 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:13:20 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	ft_here_doc(t_pipex *pipex, char *limiter)
 	{
 		line = get_next_line(0, 0);
 		if (!line)
-		{
-			free(line);
 			break ;
-		}
 		if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0
 			&& (ft_strlen(line) - 1) == ft_strlen(limiter))
 		{

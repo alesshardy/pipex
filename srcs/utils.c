@@ -6,7 +6,7 @@
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:40:36 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 18:24:51 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/11 16:48:34 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ int	ft_waitpid(t_pipex *pipex)
 	i = 0;
 	while (i < pipex->cmd_count)
 	{
-		waitpid(pipex->pid[i], &status, 0);
+		if (ft_strncmp(pipex->cmd[i], "sleep", 5) == 0)
+			wait(&status);
+		else
+			waitpid(pipex->pid[i], &status, 0);
 		exit_statuses[i] = status >> 8;
 		i++;
 	}
@@ -53,9 +56,6 @@ int	ft_waitpid(t_pipex *pipex)
 	free(exit_statuses);
 	return (status);
 }
-
-// Modif pour recuperer seulement le retour du dernier processus (en comparant ou last PID)
-// (uiliser wait pour permmetre de pas perdre processus enfant qui fini avant un enfant qui suit)
 
 void	free_tab(char **tab)
 {

@@ -6,7 +6,7 @@
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:01:16 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 13:14:15 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:31:24 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_child_process(t_pipex *pipex, int i)
 
 void	handle_parent_process(t_pipex *pipex, int i)
 {
-	if (i)
+	if (i > 0)
 		close(pipex->prev_fd);
 	pipex->prev_fd = pipex->fd[0];
 	close(pipex->fd[1]);
@@ -68,10 +68,7 @@ void	open_files(int i, t_pipex *pipex)
 	{
 		pipex->fd_in = open(pipex->infile, O_RDONLY);
 		if (pipex->fd_in < 0)
-		{
-			perror(pipex->infile);
-			exit(0);
-		}
+			ft_handle_error(pipex->infile);
 		dup2(pipex->fd_in, STDIN_FILENO);
 		close(pipex->fd_in);
 	}
@@ -84,10 +81,7 @@ void	open_files(int i, t_pipex *pipex)
 			pipex->fd_out = open(pipex->outfile,
 					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (pipex->fd_out < 0)
-		{
-			perror(pipex->outfile);
-			exit(1);
-		}
+			ft_handle_error(pipex->outfile);
 		dup2(pipex->fd_out, STDOUT_FILENO);
 		close(pipex->fd_out);
 	}

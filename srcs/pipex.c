@@ -6,7 +6,7 @@
 /*   By: apintus <apintus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:01:16 by apintus           #+#    #+#             */
-/*   Updated: 2024/03/08 18:23:21 by apintus          ###   ########.fr       */
+/*   Updated: 2024/03/11 16:48:46 by apintus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	ft_pipex(t_pipex *pipex)
 		pipe(pipex->fd);
 		pipex->pid[i] = fork();
 		if (pipex->pid[i] == 0)
-		{
-			printf("pid: %d\n", getpid());//debug
 			handle_child_process(pipex, i);
-		}
 		else
 			handle_parent_process(pipex, i);
 		i++;

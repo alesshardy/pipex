@@ -6,7 +6,7 @@
 #    By: apintus <apintus@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 17:16:05 by apintus           #+#    #+#              #
-#    Updated: 2024/03/08 17:04:15 by apintus          ###   ########.fr        #
+#    Updated: 2024/03/11 17:32:11 by apintus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ BONUS_ARCHIVE = pipex_bonus.a
 ##########################################################
 ## SOURCES
 
-SRCS = srcs/main.c\
+SRCS_BONUS = srcs/main.c\
 		srcs/utils.c\
 		srcs/pipex.c\
 		srcs/exec.c\
@@ -39,7 +39,7 @@ LIBFT_PATH = $(LIBFT_DIR)/libft.a
 
 # BONUS
 
-SRCS_BONUS = bonus/main_bonus.c\
+SRCS = bonus/main_bonus.c\
 		bonus/utils_bonus.c\
 		bonus/pipex_bonus.c\
 		bonus/exec_bonus.c\
