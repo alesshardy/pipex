@@ -6,7 +6,7 @@
 #    By: apintus <apintus@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 17:16:05 by apintus           #+#    #+#              #
-#    Updated: 2024/03/11 17:34:49 by apintus          ###   ########.fr        #
+#    Updated: 2024/03/12 12:29:49 by apintus          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,14 @@
 
 NAME = pipex
 ARCHIVE = pipex.a
+HEADER = includes/pipex.h
 CC = cc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -g
 MAKE_LIB = ar -rcs
 BONUS_NAME = pipex_bonus
 BONUS_ARCHIVE = pipex_bonus.a
+HEADER_BONUS = includes/pipex_bonus.h
 
 ##########################################################
 ## SOURCES
@@ -45,7 +47,7 @@ SRCS_BONUS = bonus/main_bonus.c\
 		bonus/exec_bonus.c\
 		bonus/here_doc_bonus.c\
 
-OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o_bonus)
 
 ##########################################################
 ## RULES
@@ -58,7 +60,7 @@ $(NAME) : $(ARCHIVE) $(LIBFT_PATH)
 $(ARCHIVE) : $(OBJS)
 	$(MAKE_LIB) $(ARCHIVE) $(OBJS)
 
-%.o : %.c
+%.o : %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT_PATH) :
@@ -83,5 +85,8 @@ $(BONUS_NAME) : $(BONUS_ARCHIVE) $(LIBFT_PATH)
 
 $(BONUS_ARCHIVE) : $(OBJS_BONUS)
 	$(MAKE_LIB) $(BONUS_ARCHIVE) $(OBJS_BONUS)
+
+%.o_bonus : %.c $(HEADER_BONUS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY : all clean fclean re bonus
